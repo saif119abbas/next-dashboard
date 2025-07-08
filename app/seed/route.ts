@@ -114,7 +114,7 @@ async function seedRevenue() {
 
 export async function GET() {
   try {
-    await sql.begin((sql) => [dropTabels]);
+    //await sql.begin((sql) => [dropTabels]);
     await sql.begin((sql) => [seedUsers()]);
     await sql.begin((sql) => [seedCustomers()]);
     await sql.begin((sql) => [seedInvoices()]);
