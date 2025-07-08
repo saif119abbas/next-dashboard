@@ -30,6 +30,7 @@ async function seedUsers() {
 }
 async function dropTabels()
 {
+    await sql`DROP EXTENSION IF EXISTS "uuid-ossp"`
     await sql`DROP Table revenue`;
     await sql`DROP Table invoices`;
     await sql`DROP Table customers`;
@@ -40,7 +41,7 @@ async function dropTabels()
 
 
 async function seedInvoices() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  //await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS invoices (
@@ -66,7 +67,7 @@ async function seedInvoices() {
 }
 
 async function seedCustomers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  //await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS customers (
@@ -114,15 +115,16 @@ async function seedRevenue() {
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
-      seedUsers(),
+      /*seedUsers(),
       seedCustomers(),
       seedInvoices(),
-      seedRevenue(),
-      //dropTabels()
+      seedRevenue(),*/
+     dropTabels()
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
+    console.log(error)
     return Response.json({ error }, { status: 500 });
   }
 }
