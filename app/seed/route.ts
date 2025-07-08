@@ -31,10 +31,10 @@ async function seedUsers() {
 async function dropTabels()
 {
     await sql`DROP EXTENSION IF EXISTS "uuid-ossp"`
-    await sql`DROP Table revenue`;
+    /*await sql`DROP Table revenue`;
     await sql`DROP Table invoices`;
     await sql`DROP Table customers`;
-    await sql`DROP Table users`;
+    await sql`DROP Table users`;*/
 
 }
   
