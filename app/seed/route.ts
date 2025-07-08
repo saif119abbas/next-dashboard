@@ -28,6 +28,16 @@ async function seedUsers() {
 
   return insertedUsers;
 }
+async function dropTabels()
+{
+    await sql`DROP Table revenue`;
+    await sql`DROP Table invoices`;
+    await sql`DROP Table customers`;
+    await sql`DROP Table users`;
+
+}
+  
+
 
 async function seedInvoices() {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -104,10 +114,11 @@ async function seedRevenue() {
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
-      seedUsers(),
+     /* seedUsers(),
       seedCustomers(),
       seedInvoices(),
-      seedRevenue(),
+      seedRevenue(),*/
+      dropTabels()
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
