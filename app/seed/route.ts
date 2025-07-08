@@ -114,15 +114,32 @@ async function seedRevenue() {
 
 export async function GET() {
   try {
-    //await sql.begin((sql) => [dropTabels]);
-    await sql.begin((sql) => [seedUsers()]);
-    await sql.begin((sql) => [seedCustomers()]);
-    await sql.begin((sql) => [seedInvoices()]);
-    await sql.begin((sql) => [seedRevenue()]);
+    // Optionally drop tables first:
+     await sql.begin(async (sql) => {
+       await dropTabels();
+       
+     });
+
+   /* await sql.begin(async (sql) => {
+      await seedUsers();
+    });
+
+    await sql.begin(async (sql) => {
+      await seedCustomers();
+    });
+
+    await sql.begin(async (sql) => {
+      await seedInvoices();
+    });
+
+    await sql.begin(async (sql) => {
+      await seedRevenue();
+    });*/
 
     return Response.json({ message: 'Database seeded successfully' });
-  } catch (error) {
-    console.log(error)
-    return Response.json({ error }, { status: 500 });
+  } catch (error : any) {
+    console.error(error);
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
+
